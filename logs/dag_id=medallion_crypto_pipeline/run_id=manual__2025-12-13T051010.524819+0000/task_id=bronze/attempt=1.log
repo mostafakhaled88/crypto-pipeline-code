@@ -1,0 +1,48 @@
+[2025-12-13T05:10:13.763+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-12-13T05:10:13.920+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: medallion_crypto_pipeline.bronze manual__2025-12-13T05:10:10.524819+00:00 [queued]>
+[2025-12-13T05:10:13.950+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: medallion_crypto_pipeline.bronze manual__2025-12-13T05:10:10.524819+00:00 [queued]>
+[2025-12-13T05:10:13.951+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2025-12-13T05:10:13.981+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): bronze> on 2025-12-13 05:10:10.524819+00:00
+[2025-12-13T05:10:14.000+0000] {standard_task_runner.py:63} INFO - Started process 186 to run task
+[2025-12-13T05:10:14.047+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'medallion_crypto_pipeline', 'bronze', 'manual__2025-12-13T05:10:10.524819+00:00', '--job-id', '39', '--raw', '--subdir', 'DAGS_FOLDER/medallion_crypto_dag.py', '--cfg-path', '/tmp/tmp62rh3uw5']
+[2025-12-13T05:10:14.069+0000] {standard_task_runner.py:91} INFO - Job 39: Subtask bronze
+[2025-12-13T05:10:14.182+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.11/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-12-13T05:10:14.674+0000] {task_command.py:426} INFO - Running <TaskInstance: medallion_crypto_pipeline.bronze manual__2025-12-13T05:10:10.524819+00:00 [running]> on host b6a7c7f5be5e
+[2025-12-13T05:10:15.022+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='medallion_crypto_pipeline' AIRFLOW_CTX_TASK_ID='bronze' AIRFLOW_CTX_EXECUTION_DATE='2025-12-13T05:10:10.524819+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-13T05:10:10.524819+00:00'
+[2025-12-13T05:10:15.029+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-12-13T05:10:15.033+0000] {medallion_crypto_dag.py:29} INFO - Starting Bronze layer
+[2025-12-13T05:10:15.034+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-12-13T05:10:15.035+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/decorators/base.py", line 265, in execute
+    return_value = super().execute(context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.11/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/medallion_crypto_dag.py", line 30, in bronze
+    extract_and_load_bronze()
+  File "/opt/airflow/dags/medallion/bronze_extract.py", line 3, in extract_and_load_bronze
+    execution_date = context["ds"]
+                     ~~~~~~~^^^^^^
+KeyError: 'ds'
+[2025-12-13T05:10:15.092+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=medallion_crypto_pipeline, task_id=bronze, run_id=manual__2025-12-13T05:10:10.524819+00:00, execution_date=20251213T051010, start_date=20251213T051013, end_date=20251213T051015
+[2025-12-13T05:10:15.133+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 39 for task bronze ('ds'; 186)
+[2025-12-13T05:10:15.188+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2025-12-13T05:10:15.253+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-12-13T05:10:15.257+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

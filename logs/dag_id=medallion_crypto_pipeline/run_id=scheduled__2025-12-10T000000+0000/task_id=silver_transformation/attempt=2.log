@@ -1,0 +1,45 @@
+[2025-12-11T04:28:12.382+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-12-11T04:28:12.432+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: medallion_crypto_pipeline.silver_transformation scheduled__2025-12-10T00:00:00+00:00 [queued]>
+[2025-12-11T04:28:12.446+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: medallion_crypto_pipeline.silver_transformation scheduled__2025-12-10T00:00:00+00:00 [queued]>
+[2025-12-11T04:28:12.447+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 3
+[2025-12-11T04:28:12.468+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): silver_transformation> on 2025-12-10 00:00:00+00:00
+[2025-12-11T04:28:12.484+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=353) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-12-11T04:28:12.486+0000] {standard_task_runner.py:63} INFO - Started process 355 to run task
+[2025-12-11T04:28:12.484+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'medallion_crypto_pipeline', 'silver_transformation', 'scheduled__2025-12-10T00:00:00+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/medallion_crypto_dag.py', '--cfg-path', '/tmp/tmpqyq220iy']
+[2025-12-11T04:28:12.488+0000] {standard_task_runner.py:91} INFO - Job 6: Subtask silver_transformation
+[2025-12-11T04:28:12.521+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-12-11T04:28:12.609+0000] {task_command.py:426} INFO - Running <TaskInstance: medallion_crypto_pipeline.silver_transformation scheduled__2025-12-10T00:00:00+00:00 [running]> on host 20ed4a49f379
+[2025-12-11T04:28:12.976+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='medallion_crypto_pipeline' AIRFLOW_CTX_TASK_ID='silver_transformation' AIRFLOW_CTX_EXECUTION_DATE='2025-12-10T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-12-10T00:00:00+00:00'
+[2025-12-11T04:28:12.977+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-12-11T04:28:12.979+0000] {medallion_crypto_dag.py:39} INFO - Starting Silver transformation for date: 2025-12-10
+[2025-12-11T04:28:12.980+0000] {silver_transform.py:13} INFO - Starting Silver Transformation...
+[2025-12-11T04:28:13.000+0000] {base.py:84} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-12-11T04:28:13.016+0000] {sql.py:470} INFO - Running statement: SELECT raw_json_payload, extracted_at FROM bronze_raw_prices ORDER BY extracted_at DESC LIMIT 1;, parameters: None
+[2025-12-11T04:28:13.019+0000] {sql.py:479} INFO - Rows affected: 1
+[2025-12-11T04:28:13.065+0000] {silver_transform.py:39} INFO - Transformed 4 rows:
+  coin_symbol  ...        processed_timestamp
+0      solana  ... 2025-12-11 04:28:13.021625
+1     bitcoin  ... 2025-12-11 04:28:13.021639
+2     cardano  ... 2025-12-11 04:28:13.021641
+3    ethereum  ... 2025-12-11 04:28:13.021643
+
+[4 rows x 4 columns]
+[2025-12-11T04:28:13.082+0000] {base.py:84} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-12-11T04:28:13.113+0000] {base.py:84} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-12-11T04:28:13.145+0000] {base.py:84} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-12-11T04:28:13.146+0000] {sql.py:187} WARNING - Placeholder defined in Connection 'None' is not listed in 'DEFAULT_SQL_PLACEHOLDERS' and got ignored. Falling back to the default placeholder '%s'.
+[2025-12-11T04:28:13.167+0000] {base.py:84} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-12-11T04:28:13.168+0000] {sql.py:187} WARNING - Placeholder defined in Connection 'None' is not listed in 'DEFAULT_SQL_PLACEHOLDERS' and got ignored. Falling back to the default placeholder '%s'.
+[2025-12-11T04:28:13.188+0000] {base.py:84} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-12-11T04:28:13.189+0000] {sql.py:187} WARNING - Placeholder defined in Connection 'None' is not listed in 'DEFAULT_SQL_PLACEHOLDERS' and got ignored. Falling back to the default placeholder '%s'.
+[2025-12-11T04:28:13.207+0000] {base.py:84} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-12-11T04:28:13.208+0000] {sql.py:187} WARNING - Placeholder defined in Connection 'None' is not listed in 'DEFAULT_SQL_PLACEHOLDERS' and got ignored. Falling back to the default placeholder '%s'.
+[2025-12-11T04:28:13.215+0000] {sql.py:593} INFO - Done loading. Loaded a total of 4 rows into silver_clean_prices
+[2025-12-11T04:28:13.216+0000] {silver_transform.py:63} INFO - Successfully loaded 4 rows into Silver layer.
+[2025-12-11T04:28:13.217+0000] {medallion_crypto_dag.py:41} INFO - Silver transformation completed for date: 2025-12-10
+[2025-12-11T04:28:13.219+0000] {python.py:237} INFO - Done. Returned value was: 2025-12-10
+[2025-12-11T04:28:13.220+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-12-11T04:28:13.269+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=medallion_crypto_pipeline, task_id=silver_transformation, run_id=scheduled__2025-12-10T00:00:00+00:00, execution_date=20251210T000000, start_date=20251211T042812, end_date=20251211T042813
+[2025-12-11T04:28:13.345+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2025-12-11T04:28:13.378+0000] {taskinstance.py:3498} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-12-11T04:28:13.383+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

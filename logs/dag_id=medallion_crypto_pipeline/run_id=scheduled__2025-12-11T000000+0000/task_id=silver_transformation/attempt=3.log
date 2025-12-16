@@ -1,0 +1,64 @@
+[2025-12-12T06:24:10.528+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-12-12T06:24:10.760+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: medallion_crypto_pipeline.silver_transformation scheduled__2025-12-11T00:00:00+00:00 [queued]>
+[2025-12-12T06:24:10.808+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: medallion_crypto_pipeline.silver_transformation scheduled__2025-12-11T00:00:00+00:00 [queued]>
+[2025-12-12T06:24:10.809+0000] {taskinstance.py:2306} INFO - Starting attempt 3 of 3
+[2025-12-12T06:24:10.883+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): silver_transformation> on 2025-12-11 00:00:00+00:00
+[2025-12-12T06:24:10.990+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=905) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-12-12T06:24:11.043+0000] {standard_task_runner.py:63} INFO - Started process 911 to run task
+[2025-12-12T06:24:10.989+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'medallion_crypto_pipeline', 'silver_transformation', 'scheduled__2025-12-11T00:00:00+00:00', '--job-id', '13', '--raw', '--subdir', 'DAGS_FOLDER/medallion_crypto_dag.py', '--cfg-path', '/tmp/tmpcqmb3kf2']
+[2025-12-12T06:24:11.080+0000] {standard_task_runner.py:91} INFO - Job 13: Subtask silver_transformation
+[2025-12-12T06:24:11.321+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-12-12T06:24:12.007+0000] {task_command.py:426} INFO - Running <TaskInstance: medallion_crypto_pipeline.silver_transformation scheduled__2025-12-11T00:00:00+00:00 [running]> on host 7b770ee7e2a1
+[2025-12-12T06:24:12.431+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='medallion_crypto_pipeline' AIRFLOW_CTX_TASK_ID='silver_transformation' AIRFLOW_CTX_EXECUTION_DATE='2025-12-11T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='3' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-12-11T00:00:00+00:00'
+[2025-12-12T06:24:12.444+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-12-12T06:24:12.472+0000] {medallion_crypto_dag.py:48} INFO - Starting Silver transformation for date: 2025-12-11
+[2025-12-12T06:24:12.488+0000] {silver_transform.py:18} INFO - Starting Silver Transformation...
+[2025-12-12T06:24:12.556+0000] {base.py:84} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-12-12T06:24:12.592+0000] {sql.py:470} INFO - Running statement: SELECT raw_json_payload, extracted_at FROM bronze_raw_prices ORDER BY extracted_at DESC LIMIT 1; WHERE DATE(extracted_at) = '2025-12-11' ORDER BY extracted_at DESC LIMIT 1;, parameters: None
+[2025-12-12T06:24:12.599+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-12-12T06:24:12.601+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/decorators/base.py", line 265, in execute
+    return_value = super().execute(context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/medallion_crypto_dag.py", line 49, in run_silver_transform
+    transform_and_load_silver(run_date)
+  File "/opt/airflow/scripts/silver_transform.py", line 28, in transform_and_load_silver
+    records = hook.get_records(sql_query)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 283, in get_records
+    return self.run(sql=sql, parameters=parameters, handler=fetch_all_handler)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 418, in run
+    self._run_command(cur, sql_statement, parameters)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 475, in _run_command
+    cur.execute(sql_statement)
+psycopg2.errors.SyntaxError: syntax error at or near "WHERE"
+LINE 1: ...ze_raw_prices ORDER BY extracted_at DESC LIMIT 1; WHERE DATE...
+                                                             ^
+
+[2025-12-12T06:24:12.657+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=medallion_crypto_pipeline, task_id=silver_transformation, run_id=scheduled__2025-12-11T00:00:00+00:00, execution_date=20251211T000000, start_date=20251212T062410, end_date=20251212T062412
+[2025-12-12T06:24:12.694+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 13 for task silver_transformation (syntax error at or near "WHERE"
+LINE 1: ...ze_raw_prices ORDER BY extracted_at DESC LIMIT 1; WHERE DATE...
+                                                             ^
+; 911)
+[2025-12-12T06:24:12.749+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2025-12-12T06:24:12.786+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

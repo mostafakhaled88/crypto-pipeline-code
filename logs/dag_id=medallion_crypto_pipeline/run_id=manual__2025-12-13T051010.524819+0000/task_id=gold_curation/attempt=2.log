@@ -1,0 +1,24 @@
+[2025-12-13T05:29:47.036+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-12-13T05:29:47.096+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: medallion_crypto_pipeline.gold_curation manual__2025-12-13T05:10:10.524819+00:00 [queued]>
+[2025-12-13T05:29:47.113+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: medallion_crypto_pipeline.gold_curation manual__2025-12-13T05:10:10.524819+00:00 [queued]>
+[2025-12-13T05:29:47.114+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 3
+[2025-12-13T05:29:47.141+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): gold_curation> on 2025-12-13 05:10:10.524819+00:00
+[2025-12-13T05:29:47.150+0000] {standard_task_runner.py:63} INFO - Started process 190 to run task
+[2025-12-13T05:29:47.160+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'medallion_crypto_pipeline', 'gold_curation', 'manual__2025-12-13T05:10:10.524819+00:00', '--job-id', '52', '--raw', '--subdir', 'DAGS_FOLDER/medallion_crypto_dag.py', '--cfg-path', '/tmp/tmpddknzy9u']
+[2025-12-13T05:29:47.166+0000] {standard_task_runner.py:91} INFO - Job 52: Subtask gold_curation
+[2025-12-13T05:29:47.211+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.11/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-12-13T05:29:47.335+0000] {task_command.py:426} INFO - Running <TaskInstance: medallion_crypto_pipeline.gold_curation manual__2025-12-13T05:10:10.524819+00:00 [running]> on host 8ada072513e0
+[2025-12-13T05:29:47.533+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='medallion_crypto_pipeline' AIRFLOW_CTX_TASK_ID='gold_curation' AIRFLOW_CTX_EXECUTION_DATE='2025-12-13T05:10:10.524819+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-13T05:10:10.524819+00:00'
+[2025-12-13T05:29:47.535+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-12-13T05:29:47.537+0000] {medallion_crypto_dag.py:53} INFO - Running Gold curation for date: 2025-12-13
+[2025-12-13T05:29:47.538+0000] {gold_curation.py:40} INFO - [2025-12-13] Starting Gold Curation...
+[2025-12-13T05:29:47.560+0000] {base.py:84} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-12-13T05:29:47.616+0000] {gold_curation.py:68} INFO - Ensured Gold table exists: gold_daily_metrics
+[2025-12-13T05:29:47.617+0000] {gold_curation.py:71} INFO - Aggregating Silver data from silver_clean_prices for 2025-12-13
+[2025-12-13T05:29:47.625+0000] {gold_curation.py:90} INFO - [2025-12-13] Successfully curated and loaded/updated 4 rows into Gold layer: gold_daily_metrics
+[2025-12-13T05:29:47.626+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-12-13T05:29:47.628+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-12-13T05:29:47.646+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=medallion_crypto_pipeline, task_id=gold_curation, run_id=manual__2025-12-13T05:10:10.524819+00:00, execution_date=20251213T051010, start_date=20251213T052947, end_date=20251213T052947
+[2025-12-13T05:29:47.691+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2025-12-13T05:29:47.722+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-12-13T05:29:47.728+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

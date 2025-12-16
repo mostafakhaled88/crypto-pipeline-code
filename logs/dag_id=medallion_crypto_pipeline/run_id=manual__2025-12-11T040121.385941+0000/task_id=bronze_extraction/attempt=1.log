@@ -1,0 +1,63 @@
+[2025-12-11T04:01:28.255+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-12-11T04:01:28.636+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: medallion_crypto_pipeline.bronze_extraction manual__2025-12-11T04:01:21.385941+00:00 [queued]>
+[2025-12-11T04:01:28.692+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: medallion_crypto_pipeline.bronze_extraction manual__2025-12-11T04:01:21.385941+00:00 [queued]>
+[2025-12-11T04:01:28.694+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2025-12-11T04:01:28.853+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): bronze_extraction> on 2025-12-11 04:01:21.385941+00:00
+[2025-12-11T04:01:28.924+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=181) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-12-11T04:01:28.992+0000] {standard_task_runner.py:63} INFO - Started process 183 to run task
+[2025-12-11T04:01:28.957+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'medallion_crypto_pipeline', 'bronze_extraction', 'manual__2025-12-11T04:01:21.385941+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/medallion_crypto_dag.py', '--cfg-path', '/tmp/tmprphiy97j']
+[2025-12-11T04:01:29.002+0000] {standard_task_runner.py:91} INFO - Job 5: Subtask bronze_extraction
+[2025-12-11T04:01:29.165+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-12-11T04:01:29.937+0000] {task_command.py:426} INFO - Running <TaskInstance: medallion_crypto_pipeline.bronze_extraction manual__2025-12-11T04:01:21.385941+00:00 [running]> on host 7c99677c3514
+[2025-12-11T04:01:32.667+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='medallion_crypto_pipeline' AIRFLOW_CTX_TASK_ID='bronze_extraction' AIRFLOW_CTX_EXECUTION_DATE='2025-12-11T04:01:21.385941+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-11T04:01:21.385941+00:00'
+[2025-12-11T04:01:32.668+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-12-11T04:01:32.670+0000] {medallion_crypto_dag.py:44} INFO - Starting Bronze extraction for date: 2025-12-11
+[2025-12-11T04:01:32.671+0000] {bronze_extract.py:25} INFO - [2025-12-11] Starting Bronze Extraction with Config...
+[2025-12-11T04:01:32.675+0000] {bronze_extract.py:37} INFO - Extracting coins: bitcoin,ethereum,cardano,solana | VS: usd
+[2025-12-11T04:01:32.676+0000] {bronze_extract.py:38} INFO - Rate limit: Sleep 1.2s between requests
+[2025-12-11T04:01:33.245+0000] {bronze_extract.py:48} INFO - Successfully extracted 4 coins
+[2025-12-11T04:01:33.297+0000] {base.py:84} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-12-11T04:01:33.319+0000] {medallion_crypto_dag.py:48} ERROR - Bronze extraction failed for date 2025-12-11: connection to server at "postgres" (172.20.0.2), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+[2025-12-11T04:01:33.336+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-12-11T04:01:33.339+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/decorators/base.py", line 265, in execute
+    return_value = super().execute(context)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/medallion_crypto_dag.py", line 45, in run_bronze_extract
+    extract_and_load_bronze(ds)
+  File "/opt/airflow/scripts/bronze_extract.py", line 53, in extract_and_load_bronze
+    with hook.get_conn() as conn:
+         ^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/postgres/hooks/postgres.py", line 161, in get_conn
+    self.conn = psycopg2.connect(**conn_args)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.OperationalError: connection to server at "postgres" (172.20.0.2), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+[2025-12-11T04:01:33.419+0000] {taskinstance.py:1206} INFO - Marking task as UP_FOR_RETRY. dag_id=medallion_crypto_pipeline, task_id=bronze_extraction, run_id=manual__2025-12-11T04:01:21.385941+00:00, execution_date=20251211T040121, start_date=20251211T040128, end_date=20251211T040133
+[2025-12-11T04:01:34.148+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 5 for task bronze_extraction (connection to server at "postgres" (172.20.0.2), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+; 183)
+[2025-12-11T04:01:34.265+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2025-12-11T04:01:34.303+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

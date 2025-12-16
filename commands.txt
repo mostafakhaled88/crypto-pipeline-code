@@ -1,0 +1,29 @@
+Build and Start the Services
+
+docker compose up --build -d
+
+Check Service Status
+
+docker compose ps
+
+
+docker compose down
+docker compose up -d
+
+
+docker compose exec airflow-webserver bash
+airflow tasks test medallion_crypto_pipeline bronze_task 2025-12-16
+airflow tasks test medallion_crypto_pipeline silver_task 2025-12-16
+airflow tasks test medallion_crypto_pipeline gold_task 2025-12-16
+
+docker exec -it crypto_etl_pipeline2-postgres-1 psql -U airflow -d airflow
+
+
+-- Bronze
+SELECT COUNT(*) FROM bronze_raw_prices;
+
+-- Silver
+SELECT COUNT(*) FROM silver_clean_prices;
+
+-- Gold
+SELECT COUNT(*) FROM gold_daily_metrics;

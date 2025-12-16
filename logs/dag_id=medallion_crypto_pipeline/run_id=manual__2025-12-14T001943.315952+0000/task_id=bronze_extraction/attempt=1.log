@@ -1,0 +1,25 @@
+[2025-12-14T00:19:55.439+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-12-14T00:19:55.526+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: medallion_crypto_pipeline.bronze_extraction manual__2025-12-14T00:19:43.315952+00:00 [queued]>
+[2025-12-14T00:19:55.548+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: medallion_crypto_pipeline.bronze_extraction manual__2025-12-14T00:19:43.315952+00:00 [queued]>
+[2025-12-14T00:19:55.549+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 3
+[2025-12-14T00:19:55.577+0000] {taskinstance.py:2330} INFO - Executing <Task(_PythonDecoratedOperator): bronze_extraction> on 2025-12-14 00:19:43.315952+00:00
+[2025-12-14T00:19:55.653+0000] {standard_task_runner.py:63} INFO - Started process 381 to run task
+[2025-12-14T00:19:55.706+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'medallion_crypto_pipeline', 'bronze_extraction', 'manual__2025-12-14T00:19:43.315952+00:00', '--job-id', '53', '--raw', '--subdir', 'DAGS_FOLDER/medallion_crypto_dag.py', '--cfg-path', '/tmp/tmpd5poyro_']
+[2025-12-14T00:19:55.715+0000] {standard_task_runner.py:91} INFO - Job 53: Subtask bronze_extraction
+[2025-12-14T00:19:55.791+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.11/site-packages/***/settings.py:195 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-12-14T00:19:55.912+0000] {task_command.py:426} INFO - Running <TaskInstance: medallion_crypto_pipeline.bronze_extraction manual__2025-12-14T00:19:43.315952+00:00 [running]> on host 8ada072513e0
+[2025-12-14T00:19:56.161+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='medallion_crypto_pipeline' AIRFLOW_CTX_TASK_ID='bronze_extraction' AIRFLOW_CTX_EXECUTION_DATE='2025-12-14T00:19:43.315952+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-14T00:19:43.315952+00:00'
+[2025-12-14T00:19:56.165+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-12-14T00:19:56.168+0000] {medallion_crypto_dag.py:41} INFO - Running Bronze extraction for date: 2025-12-14
+[2025-12-14T00:19:56.171+0000] {bronze_extract.py:36} INFO - [2025-12-14] Starting Bronze Extraction...
+[2025-12-14T00:19:56.176+0000] {bronze_extract.py:51} INFO - Extracting coins: bitcoin,ethereum,cardano,solana | VS: usd from https://api.coingecko.com/api/v3/simple/price
+[2025-12-14T00:19:56.177+0000] {bronze_extract.py:56} INFO - Rate limiting: sleeping for 1.2s before API request...
+[2025-12-14T00:19:57.912+0000] {bronze_extract.py:71} INFO - Successfully extracted 4 coins.
+[2025-12-14T00:19:58.031+0000] {base.py:84} INFO - Using connection ID 'postgres_default' for task execution.
+[2025-12-14T00:19:58.146+0000] {bronze_extract.py:98} INFO - [2025-12-14] Bronze data inserted successfully into bronze_raw_prices.
+[2025-12-14T00:19:58.160+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-12-14T00:19:58.163+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-12-14T00:19:58.241+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=medallion_crypto_pipeline, task_id=bronze_extraction, run_id=manual__2025-12-14T00:19:43.315952+00:00, execution_date=20251214T001943, start_date=20251214T001955, end_date=20251214T001958
+[2025-12-14T00:19:58.379+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2025-12-14T00:19:58.500+0000] {taskinstance.py:3498} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-12-14T00:19:58.522+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
